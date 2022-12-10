@@ -1,0 +1,562 @@
+[
+    {
+		"NOMBRE" : "Nombre",
+		"SUPERFICIE" : "Superficie", 
+        "FECHA DECLARACION" : "Fecha"
+	},
+	{
+		"NOMBRE" : "Cabañeros",
+		"SUPERFICIE" : "40855,98", 
+        "FECHA DECLARACION" : "20/11/1995"
+	},
+	{
+		"NOMBRE" : "Tablas de Daimiel",
+		"SUPERFICIE" : "3030,52", 
+        "FECHA DECLARACION" : "03/05/1980"
+	},
+	{
+		"NOMBRE" : "Alto Tajo",
+		"SUPERFICIE" : "105721", 
+        "FECHA DECLARACION" : "06/04/2000"
+	},
+	{
+		"NOMBRE" : "Barranco del río Dulce",
+		"SUPERFICIE" : "8348", 
+        "FECHA DECLARACION" : "27/02/2003"
+	},
+	{
+		"NOMBRE" : "Calares del Mundo y de la Sima",
+		"SUPERFICIE" : "19192", 
+        "FECHA DECLARACION" : "05/05/2005"
+	},
+	{
+		"NOMBRE" : "Lagunas de Ruidera",
+		"SUPERFICIE" : "3772", 
+        "FECHA DECLARACION" : "13/07/1978"
+	},
+	{
+		"NOMBRE" : "Serranía de Cuenca",
+		"SUPERFICIE" : "73726", 
+        "FECHA DECLARACION" : "08/03/2007"
+	},
+	{
+		"NOMBRE" : "Sierra Norte de Guadalajara",
+		"SUPERFICIE" : "117898", 
+        "FECHA DECLARACION" : "10/03/2011"
+	},
+	{
+		"NOMBRE" : "Valle de Alcudia y Sierra Madrona.",
+		"SUPERFICIE" : "149463", 
+        "FECHA DECLARACION" : "10/03/2011"
+	},
+	{
+		"NOMBRE" : "Complejo lagunar de Alcázar de San Juan",
+		"SUPERFICIE" : "695", 
+        "FECHA DECLARACION" : "19/10/1999"
+	},
+	{
+		"NOMBRE" : "Complejo Lagunar de Ballesteros",
+		"SUPERFICIE" : "219", 
+        "FECHA DECLARACION" : "12/02/2002"
+	},
+	{
+		"NOMBRE" : "Complejo lagunar de Manjavacas",
+		"SUPERFICIE" : "742", 
+        "FECHA DECLARACION" : "02/10/2001"
+	},
+	{
+		"NOMBRE" : "Complejo lagunar de Pedro Muñoz",
+		"SUPERFICIE" : "191", 
+        "FECHA DECLARACION" : "10/09/2002"
+	},
+	{
+		"NOMBRE" : "Hoces del Cabriel en Cuenca",
+		"SUPERFICIE" : "1662", 
+        "FECHA DECLARACION" : "17/10/1995"
+	},
+	{
+		"NOMBRE" : "Laguna de El Hito",
+		"SUPERFICIE" : "573", 
+        "FECHA DECLARACION" : "12/02/2002"
+	},
+	{
+		"NOMBRE" : "Laguna de La Albardiosa",
+		"SUPERFICIE" : "79,75", 
+        "FECHA DECLARACION" : "20/06/2006"
+	},
+	{
+		"NOMBRE" : "Laguna de la Sal",
+		"SUPERFICIE" : "56,85", 
+        "FECHA DECLARACION" : "14/03/2006"
+	},
+	{
+		"NOMBRE" : "Laguna de los Ojos de Villaverde",
+		"SUPERFICIE" : "360,42", 
+        "FECHA DECLARACION" : "25/04/2006"
+	},
+	{
+		"NOMBRE" : "Laguna de Peñahueca",
+		"SUPERFICIE" : "178,75", 
+        "FECHA DECLARACION" : "04/10/2005"
+	},
+	{
+		"NOMBRE" : "Laguna de Salicor",
+		"SUPERFICIE" : "291", 
+        "FECHA DECLARACION" : "19/12/2000"
+	},
+	{
+		"NOMBRE" : "Laguna de Tirez",
+		"SUPERFICIE" : "199,4", 
+        "FECHA DECLARACION" : "28/03/2006"
+	},
+	{
+		"NOMBRE" : "Laguna del Marquesado",
+		"SUPERFICIE" : "373", 
+        "FECHA DECLARACION" : "01/06/2004"
+	},
+	{
+		"NOMBRE" : "Laguna del Prado",
+		"SUPERFICIE" : "53,88", 
+        "FECHA DECLARACION" : "20/07/2004"
+	},
+	{
+		"NOMBRE" : "Laguna Salada de Pétrola",
+		"SUPERFICIE" : "343,81", 
+        "FECHA DECLARACION" : "13/09/2005"
+	},
+	{
+		"NOMBRE" : "Lagunas de El Longar, Altillo Grande y Altillo Chica",
+		"SUPERFICIE" : "407,07", 
+        "FECHA DECLARACION" : "20/06/2006"
+	},
+	{
+		"NOMBRE" : "Lagunas de Puebla de Beleña",
+		"SUPERFICIE" : "191", 
+        "FECHA DECLARACION" : "02/10/2001"
+	},
+	{
+		"NOMBRE" : "Lagunas Grande y Chica de Villafranca de los Caballeros",
+		"SUPERFICIE" : "303", 
+        "FECHA DECLARACION" : "20/06/2006"
+	},
+	{
+		"NOMBRE" : "Lagunas y Albardinales del Gigüela",
+		"SUPERFICIE" : "2979,7", 
+        "FECHA DECLARACION" : "22/03/2011"
+	},
+	{
+		"NOMBRE" : "Navas de Malagón",
+		"SUPERFICIE" : "466", 
+        "FECHA DECLARACION" : "13/09/2005"
+	},
+	{
+		"NOMBRE" : "Saladar de Cordovilla",
+		"SUPERFICIE" : "294,61", 
+        "FECHA DECLARACION" : "12/12/2006"
+	},
+	{
+		"NOMBRE" : "Sierra de las Cabras",
+		"SUPERFICIE" : "4173,62", 
+        "FECHA DECLARACION" : "29/03/2005"
+	},
+	{
+		"NOMBRE" : "Albardinales de Membrilla-La Solana",
+		"SUPERFICIE" : "26,13", 
+        "FECHA DECLARACION" : "14/05/2002"
+	},
+	{
+		"NOMBRE" : "Ardal y Tinjarra",
+		"SUPERFICIE" : "2130,83", 
+        "FECHA DECLARACION" : "12/04/2005"
+	},
+	{
+		"NOMBRE" : "Área crítica de Vella pseudocytisus subsp. pseudocytisus",
+		"SUPERFICIE" : "145,17", 
+        "FECHA DECLARACION" : "27/09/2005"
+	},
+	{
+		"NOMBRE" : "Arenales de Caudete",
+		"SUPERFICIE" : "125,04", 
+        "FECHA DECLARACION" : "28/12/2004"
+	},
+	{
+		"NOMBRE" : "Bonal de El Alcornocal",
+		"SUPERFICIE" : "13,1", 
+        "FECHA DECLARACION" : "25/03/2003"
+	},
+	{
+		"NOMBRE" : "Bonal de la Sierra del Hontanar",
+		"SUPERFICIE" : "5,61", 
+        "FECHA DECLARACION" : "11/03/2003"
+	},
+	{
+		"NOMBRE" : "Bonal del Arroyo de Valdelamadera",
+		"SUPERFICIE" : "22,32", 
+        "FECHA DECLARACION" : "03/09/2002"
+	},
+	{
+		"NOMBRE" : "Bonal del Barranco de los Membrillos",
+		"SUPERFICIE" : "6,85", 
+        "FECHA DECLARACION" : "04/02/2003"
+	},
+	{
+		"NOMBRE" : "Bonal del Barranco de Riofrío",
+		"SUPERFICIE" : "16,77", 
+        "FECHA DECLARACION" : "04/02/2003"
+	},
+	{
+		"NOMBRE" : "Bonal del Barranco de Zarzalagorda",
+		"SUPERFICIE" : "9,12", 
+        "FECHA DECLARACION" : "06/05/2003"
+	},
+	{
+		"NOMBRE" : "Bonal del Barranco del Chorro",
+		"SUPERFICIE" : "17,63", 
+        "FECHA DECLARACION" : "03/09/2002"
+	},
+	{
+		"NOMBRE" : "Bonal del Barranco del Remilladero",
+		"SUPERFICIE" : "31,58", 
+        "FECHA DECLARACION" : "04/02/2003"
+	},
+	{
+		"NOMBRE" : "Bonal del Cerro de los Barranquillos",
+		"SUPERFICIE" : "10,48", 
+        "FECHA DECLARACION" : "14/05/2002"
+	},
+	{
+		"NOMBRE" : "Bonal del Morro de la Parrilla",
+		"SUPERFICIE" : "5,11", 
+        "FECHA DECLARACION" : "03/09/2002"
+	},
+	{
+		"NOMBRE" : "Bonales de Puebla de Don Rodrigo",
+		"SUPERFICIE" : "64,09", 
+        "FECHA DECLARACION" : "02/04/2002"
+	},
+	{
+		"NOMBRE" : "Cerro de Rala",
+		"SUPERFICIE" : "596,42", 
+        "FECHA DECLARACION" : "12/04/2005"
+	},
+	{
+		"NOMBRE" : "Cerros margosos de Pastrana y Yebra",
+		"SUPERFICIE" : "68,48", 
+        "FECHA DECLARACION" : "14/05/2002"
+	},
+	{
+		"NOMBRE" : "Cerros volcánicos de La Miñosa",
+		"SUPERFICIE" : "97,03", 
+        "FECHA DECLARACION" : "12/03/2002"
+	},
+	{
+		"NOMBRE" : "Complejo Lagunar del río Moscas",
+		"SUPERFICIE" : "125,7", 
+        "FECHA DECLARACION" : "04/05/2010"
+	},
+	{
+		"NOMBRE" : "Cuerda de la Melera",
+		"SUPERFICIE" : "98,8", 
+        "FECHA DECLARACION" : "12/04/2005"
+	},
+	{
+		"NOMBRE" : "Cueva de la Canaleja",
+		"SUPERFICIE" : "0,89", 
+        "FECHA DECLARACION" : "18/03/2003"
+	},
+	{
+		"NOMBRE" : "Cueva de la Judía",
+		"SUPERFICIE" : "3,78", 
+        "FECHA DECLARACION" : "07/03/2006"
+	},
+	{
+		"NOMBRE" : "Cueva de los Morceguillos",
+		"SUPERFICIE" : "6,02", 
+        "FECHA DECLARACION" : "14/03/2006"
+	},
+	{
+		"NOMBRE" : "Cueva de los Morciguillos",
+		"SUPERFICIE" : "2,74", 
+        "FECHA DECLARACION" : "07/03/2006"
+	},
+	{
+		"NOMBRE" : "Cueva de los Murciélagos",
+		"SUPERFICIE" : "0,57", 
+        "FECHA DECLARACION" : "18/03/2003"
+	},
+	{
+		"NOMBRE" : "Estrecho del Hocino",
+		"SUPERFICIE" : "108,77", 
+        "FECHA DECLARACION" : "23/12/2003"
+	},
+	{
+		"NOMBRE" : "Garganta de las Lanchas",
+		"SUPERFICIE" : "435,7", 
+        "FECHA DECLARACION" : "06/05/2003"
+	},
+	{
+		"NOMBRE" : "La Molata y Los Batanes",
+		"SUPERFICIE" : "589,18", 
+        "FECHA DECLARACION" : "18/03/2003"
+	},
+	{
+		"NOMBRE" : "Laguna de Alboraj",
+		"SUPERFICIE" : "11,2", 
+        "FECHA DECLARACION" : "19/12/2000"
+	},
+	{
+		"NOMBRE" : "Laguna de Caracuel",
+		"SUPERFICIE" : "66,15", 
+        "FECHA DECLARACION" : "13/05/2003"
+	},
+	{
+		"NOMBRE" : "Laguna de los Carros",
+		"SUPERFICIE" : "38,45", 
+        "FECHA DECLARACION" : "04/12/2007"
+	},
+	{
+		"NOMBRE" : "Laguna de Talayuelas",
+		"SUPERFICIE" : "29,66", 
+        "FECHA DECLARACION" : "04/02/2003"
+	},
+	{
+		"NOMBRE" : "Mina de los Pontones",
+		"SUPERFICIE" : "5,37", 
+        "FECHA DECLARACION" : "02/12/2003"
+	},
+	{
+		"NOMBRE" : "Peñas Coloradas",
+		"SUPERFICIE" : "187,94", 
+        "FECHA DECLARACION" : "12/04/2005"
+	},
+	{
+		"NOMBRE" : "Pico Pelado",
+		"SUPERFICIE" : "41,36", 
+        "FECHA DECLARACION" : "12/11/2002"
+	},
+	{
+		"NOMBRE" : "Prados húmedos de Torremocha del Pinar",
+		"SUPERFICIE" : "11", 
+        "FECHA DECLARACION" : "30/11/1999"
+	},
+	{
+		"NOMBRE" : "Refugios de quirópteros de Fuencaliente",
+		"SUPERFICIE" : "6,47", 
+        "FECHA DECLARACION" : "23/09/2003"
+	},
+	{
+		"NOMBRE" : "Rincón del Torozo",
+		"SUPERFICIE" : "344,37", 
+        "FECHA DECLARACION" : "02/04/2002"
+	},
+	{
+		"NOMBRE" : "Saladar de Agramón",
+		"SUPERFICIE" : "162,9", 
+        "FECHA DECLARACION" : "12/07/2005"
+	},
+	{
+		"NOMBRE" : "Saladares de Huerta de Valdecarábanos",
+		"SUPERFICIE" : "263,69", 
+        "FECHA DECLARACION" : "05/10/2004"
+	},
+	{
+		"NOMBRE" : "Saladares de la cuenca del río Salado",
+		"SUPERFICIE" : "187,76", 
+        "FECHA DECLARACION" : "14/10/2003"
+	},
+	{
+		"NOMBRE" : "Saladares de Villasequilla",
+		"SUPERFICIE" : "121,58", 
+        "FECHA DECLARACION" : "04/01/2005"
+	},
+	{
+		"NOMBRE" : "Salinas de Pinilla",
+		"SUPERFICIE" : "49,66", 
+        "FECHA DECLARACION" : "04/01/2005"
+	},
+	{
+		"NOMBRE" : "Salobral de Ocaña",
+		"SUPERFICIE" : "319,64", 
+        "FECHA DECLARACION" : "14/10/2003"
+	},
+	{
+		"NOMBRE" : "Túnel de Niefla",
+		"SUPERFICIE" : "0,56", 
+        "FECHA DECLARACION" : "03/09/2002"
+	},
+	{
+		"NOMBRE" : "Túneles de Ojailén",
+		"SUPERFICIE" : "3,08", 
+        "FECHA DECLARACION" : "16/12/2003"
+	},
+	{
+		"NOMBRE" : "Turbera de Valdeyernos",
+		"SUPERFICIE" : "3,93", 
+        "FECHA DECLARACION" : "16/12/2003"
+	},
+	{
+		"NOMBRE" : "Yesares de Hellín",
+		"SUPERFICIE" : "830,25", 
+        "FECHA DECLARACION" : "05/10/2004"
+	},
+	{
+		"NOMBRE" : "Abedular de Riofrío",
+		"SUPERFICIE" : "304,02", 
+        "FECHA DECLARACION" : "04/02/2003"
+	},
+	{
+		"NOMBRE" : "Río Guadalmez",
+		"SUPERFICIE" : "915", 
+        "FECHA DECLARACION" : "28/09/2010"
+	},
+	{
+		"NOMBRE" : "Río Pelagallinas",
+		"SUPERFICIE" : "362,26", 
+        "FECHA DECLARACION" : "07/10/2003"
+	},
+	{
+		"NOMBRE" : "Sotos del río Guadyerbas y arenales del baldío de Velada",
+		"SUPERFICIE" : "1666", 
+        "FECHA DECLARACION" : "12/03/2002"
+	},
+	{
+		"NOMBRE" : "Sotos del río Milagro",
+		"SUPERFICIE" : "939,3", 
+        "FECHA DECLARACION" : "07/10/2003"
+	},
+	{
+		"NOMBRE" : "Sotos del río Tajo",
+		"SUPERFICIE" : "121,31", 
+        "FECHA DECLARACION" : "07/10/2003"
+	},
+	{
+		"NOMBRE" : "Barrancas de Castrejón y Calaña",
+		"SUPERFICIE" : "217,07", 
+        "FECHA DECLARACION" : "26/10/2010"
+	},
+	{
+		"NOMBRE" : "Hoz de Beteta y sumidero de Mata Asnos",
+		"SUPERFICIE" : "804,41", 
+        "FECHA DECLARACION" : "02/03/2004"
+	},
+	{
+		"NOMBRE" : "Laguna del Arquillo",
+		"SUPERFICIE" : "522", 
+        "FECHA DECLARACION" : "19/12/2000"
+	},
+	{
+		"NOMBRE" : "Laguna Volcánica de La Alberquilla",
+		"SUPERFICIE" : "111", 
+        "FECHA DECLARACION" : "05/10/1999"
+	},
+	{
+		"NOMBRE" : "Laguna Volcánica de Michos",
+		"SUPERFICIE" : "215", 
+        "FECHA DECLARACION" : "05/10/1999"
+	},
+	{
+		"NOMBRE" : "Laguna y Volcán de La Posadilla",
+		"SUPERFICIE" : "296", 
+        "FECHA DECLARACION" : "05/10/1999"
+	},
+	{
+		"NOMBRE" : "Lagunas de Cañada del Hoyo",
+		"SUPERFICIE" : "280,71", 
+        "FECHA DECLARACION" : "20/03/2007"
+	},
+	{
+		"NOMBRE" : "Los Castillejos Volcánicos de la Bienvenida",
+		"SUPERFICIE" : "197", 
+        "FECHA DECLARACION" : "05/10/1999"
+	},
+	{
+		"NOMBRE" : "Maar de la Hoya de Cervera",
+		"SUPERFICIE" : "284", 
+        "FECHA DECLARACION" : "05/10/1999"
+	},
+	{
+		"NOMBRE" : "Maar de la Hoya del Mortero",
+		"SUPERFICIE" : "124", 
+        "FECHA DECLARACION" : "05/12/2000"
+	},
+	{
+		"NOMBRE" : "Macizo Volcánico de Calatrava",
+		"SUPERFICIE" : "3763", 
+        "FECHA DECLARACION" : "24/06/2008"
+	},
+	{
+		"NOMBRE" : "Muela Pinilla y del Puntal",
+		"SUPERFICIE" : "640,47", 
+        "FECHA DECLARACION" : "23/09/2003"
+	},
+	{
+		"NOMBRE" : "Nacimiento del río Cuervo",
+		"SUPERFICIE" : "1709", 
+        "FECHA DECLARACION" : "30/11/1999"
+	},
+	{
+		"NOMBRE" : "Palancares y Tierra Muerta",
+		"SUPERFICIE" : "18078", 
+        "FECHA DECLARACION" : "16/01/2001"
+	},
+	{
+		"NOMBRE" : "Pitón volcánico de Cancarix",
+		"SUPERFICIE" : "613", 
+        "FECHA DECLARACION" : "03/11/1998"
+	},
+	{
+		"NOMBRE" : "Serrezuela de Valsalobre",
+		"SUPERFICIE" : "734,5", 
+        "FECHA DECLARACION" : "13/05/2003"
+	},
+	{
+		"NOMBRE" : "Sierra de Caldereros",
+		"SUPERFICIE" : "2368,04", 
+        "FECHA DECLARACION" : "05/12/2005"
+	},
+	{
+		"NOMBRE" : "Sierra de Pela y Laguna de Somolinos",
+		"SUPERFICIE" : "790", 
+        "FECHA DECLARACION" : "12/11/2002"
+	},
+	{
+		"NOMBRE" : "Tetas de Viana",
+		"SUPERFICIE" : "115,63", 
+        "FECHA DECLARACION" : "12/12/2006"
+	},
+	{
+		"NOMBRE" : "Torcas de Lagunaseca",
+		"SUPERFICIE" : "188,42", 
+        "FECHA DECLARACION" : "02/12/2003"
+	},
+	{
+		"NOMBRE" : "Volcán de Piedrabuena",
+		"SUPERFICIE" : "481", 
+        "FECHA DECLARACION" : "31/03/2009"
+	},
+	{
+		"NOMBRE" : "Volcán del Alhorín",
+		"SUPERFICIE" : "288", 
+        "FECHA DECLARACION" : "28/09/2010"
+	},
+	{
+		"NOMBRE" : "Volcán del Cerro de los Santos",
+		"SUPERFICIE" : "84", 
+        "FECHA DECLARACION" : "27/02/2001"
+	},
+	{
+		"NOMBRE" : "Volcán y laguna de Peñarroya",
+		"SUPERFICIE" : "544", 
+        "FECHA DECLARACION" : "05/12/2000"
+	},
+	{
+		"NOMBRE" : "Estratotipo del Fuentelsaz",
+		"SUPERFICIE" : "85,94", 
+        "FECHA DECLARACION" : "12/09/2017"
+	},
+	{
+		"NOMBRE" : "Chorrera de Horcajo",
+		"SUPERFICIE" : "36,38", 
+        "FECHA DECLARACION" : "06/05/2003"
+	}
+]
