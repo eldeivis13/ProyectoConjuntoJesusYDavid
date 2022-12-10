@@ -22,9 +22,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import CodigoJson.CodigoJSON;
-import Persistencias.EspacioNatural;
-import Persistencias.Parque;
-import Persistencias.Parques;
+import persistencias.EspacioNatural;
+import persistencias.Parque;
+import persistencias.Parques;
 
 public class PaquesNaturalesHelper {
 	

@@ -1,9 +1,4 @@
 [
-    {
-		"NOMBRE" : "Nombre",
-		"SUPERFICIE" : "Superficie", 
-        "FECHA DECLARACION" : "Fecha"
-	},
 	{
 		"NOMBRE" : "Cabañeros",
 		"SUPERFICIE" : "40855,98", 
