@@ -486,7 +486,7 @@ public class controladorProyecto implements ActionListener{
 		return listaInfoEspacios;
 	}
 	
-	public static void inicializarParques(Parques parques, Connection connection) throws Exception {
+	public static void inicializarParques(Connection connection, Parques parques) throws Exception {
 		
 		boolean existeParque = false;
 		for(int i = 1; i < parques.getListaParques().size(); i++) {
@@ -501,7 +501,7 @@ public class controladorProyecto implements ActionListener{
 		}
 	}
 	
-	public static void inicializarInformacion(Informaciones informaciones, Connection connection, EspacioNatural espacioNatural) throws Exception {
+	public static void inicializarInformacion(Connection connection, Informaciones informaciones) throws Exception {
 		
 		boolean existeInfo = false;
 		
@@ -548,9 +548,9 @@ public class controladorProyecto implements ActionListener{
 		        
 		       	connection = createConnection();
 		             
-		        inicializarParques(parques, connection);
+		        inicializarParques(connection, parques);
 		        
-		        inicializarInformacion(informaciones, connection, espacioNatural);
+		        inicializarInformacion(connection, informaciones);
 		        
 		        inicializarListaParques();
 			} catch (Exception s) {
