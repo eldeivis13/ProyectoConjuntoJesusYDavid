@@ -1,18 +1,27 @@
-package Persistencias;
+package persistencias;
 
-public class Informacion {
-	
+public class InformacionEspacioNatural {
+	private long idEspacio;
 	private String nombre, superficie, fechaDeclaracion;
 
-	public Informacion(String nombre, String superficie, String fechaDeclaracion) {
+	public InformacionEspacioNatural(String nombre, String superficie, String fechaDeclaracion, int idEspacio) {
 		super();
 		this.nombre = nombre;
 		this.superficie = superficie;
 		this.fechaDeclaracion = fechaDeclaracion;
+		this.idEspacio = idEspacio;
 	}
 	
-	public Informacion() {
+	public InformacionEspacioNatural() {
 		
+	}
+
+	public long getIdEspacio() {
+		return idEspacio;
+	}
+
+	public void setIdEspacio(long idEspacio2) {
+		this.idEspacio = idEspacio2;
 	}
 
 	public String getNombre() {

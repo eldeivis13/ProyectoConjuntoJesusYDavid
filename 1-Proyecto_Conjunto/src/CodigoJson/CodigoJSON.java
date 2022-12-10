@@ -16,8 +16,8 @@ import org.json.JSONObject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import Persistencias.Parque;
-import Persistencias.Parques;
+import persistencias.Parque;
+import persistencias.Parques;
 
 public class CodigoJSON {
 	

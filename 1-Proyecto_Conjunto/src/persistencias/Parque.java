@@ -1,4 +1,4 @@
-package Persistencias;
+package persistencias;
 
 public class Parque {
 	
