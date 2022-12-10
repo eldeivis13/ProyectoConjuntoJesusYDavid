@@ -504,13 +504,15 @@ public class controladorProyecto implements ActionListener{
 	public static void inicializarInformacion(Informaciones informaciones, Connection connection, EspacioNatural espacioNatural) throws Exception {
 		
 		boolean existeInfo = false;
+		
+		List<InformacionEspacioNatural> listInfoEspacios = new ArrayList<>();
+	    listInfoEspacios = getIdParque(connection);
+		
 		for(int i = 0; i < informaciones.getListaInformacion().size(); i++) {
 		    InformacionEspacioNatural informacionEN = new InformacionEspacioNatural();
 		    informacionEN.setNombre(informaciones.getListaInformacion().get(i).getNombre());
 		    informacionEN.setSuperficie(informaciones.getListaInformacion().get(i).getSuperficie());
 		    informacionEN.setFechaDeclaracion(informaciones.getListaInformacion().get(i).getFechaDeclaracion());
-		    List<InformacionEspacioNatural> listInfoEspacios = new ArrayList<>();
-		    listInfoEspacios = getIdParque(connection);
 		    informacionEN.setIdEspacio(listInfoEspacios.get(i).getIdEspacio());
 		    
 		    existeInfo = existeInformacion(connection, i);
