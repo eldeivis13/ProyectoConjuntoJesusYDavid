@@ -50,7 +50,7 @@ public class InformacionEspacioNatural {
 
 	@Override
 	public String toString() {
-		return "Informacion [nombre=" + nombre + ", superficie=" + superficie + ", fechaDeclaracion=" + fechaDeclaracion
-				+ "]";
+		return "InformacionEspacioNatural [idEspacio=" + idEspacio + ", nombre=" + nombre + ", superficie=" + superficie
+				+ ", fechaDeclaracion=" + fechaDeclaracion + "]";
 	}
 }
