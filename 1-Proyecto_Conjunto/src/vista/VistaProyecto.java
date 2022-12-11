@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controlador.controladorProyecto;
+import controlador.ControladorProyecto;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -25,7 +25,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
-public class vistaProyecto extends JFrame {
+public class VistaProyecto extends JFrame {
 
 	private JPanel contentPane;
 	public JComboBox cBFiltros;
@@ -43,8 +43,8 @@ public class vistaProyecto extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					vistaProyecto frame = new vistaProyecto();
-					controladorProyecto controlador = new controladorProyecto(frame);
+					VistaProyecto frame = new VistaProyecto();
+					ControladorProyecto controlador = new ControladorProyecto(frame);
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -57,7 +57,7 @@ public class vistaProyecto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public vistaProyecto() {
+	public VistaProyecto() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1132, 810);
 		contentPane = new JPanel();

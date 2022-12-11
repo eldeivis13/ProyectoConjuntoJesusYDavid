@@ -35,11 +35,11 @@ import persistencias.InformacionEspacioNatural;
 import persistencias.Informaciones;
 import persistencias.Parque;
 import persistencias.Parques;
-import vista.vistaProyecto;
+import vista.VistaProyecto;
 
-public class controladorProyecto implements ActionListener{
+public class ControladorProyecto implements ActionListener{
 	
-	vistaProyecto vista = new vistaProyecto();
+	VistaProyecto vista = new VistaProyecto();
 	DefaultListModel<String> modelo = new DefaultListModel<>();
 	ArrayList<Parques> litsaParque = new ArrayList<Parques>();
 	Parque parque = new Parque();
@@ -53,7 +53,7 @@ public class controladorProyecto implements ActionListener{
 	EspacioNatural espacioNatural = new EspacioNatural();
 	InformacionEspacioNatural informacionEn = new InformacionEspacioNatural();
 
-	public controladorProyecto(vistaProyecto vista) {
+	public ControladorProyecto(VistaProyecto vista) {
 		this.vista = vista;
 		this.vista.rdbtnPorProvincia.addActionListener(this);
 		this.vista.rdbtnPorTipo.addActionListener(this);
@@ -588,7 +588,6 @@ public class controladorProyecto implements ActionListener{
 		
 		if(e.getSource() == this.vista.btnIniciar) {
 			Connection connection = null;
-			PaquesNaturalesHelper helper = new PaquesNaturalesHelper();
 				
 		     try {  
 		    	connection = createConnection();
@@ -631,7 +630,7 @@ public class controladorProyecto implements ActionListener{
 			}else {
 				this.btnSinfiltro = true;
 				this.vista.cBFiltros.removeAllItems();
-				inicializarListaParques();
+				//inicializarListaParques();
 			}
 		}
 		
@@ -650,7 +649,7 @@ public class controladorProyecto implements ActionListener{
 			}else {
 				this.btnSinfiltro = true;
 				this.vista.cBFiltros.removeAllItems();
-				inicializarListaParques();
+				//inicializarListaParques();
 			}
 		}
 		
@@ -799,7 +798,7 @@ public class controladorProyecto implements ActionListener{
 		
 	}
 
-	public void getCategoria(String categoria) {
+	public void filtrarCategoria(String categoria) {
 			Connection connection;
 			try {
 				connection = createConnection();
