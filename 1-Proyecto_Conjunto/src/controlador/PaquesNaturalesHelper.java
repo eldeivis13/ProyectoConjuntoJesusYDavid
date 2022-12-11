@@ -23,12 +23,16 @@ import org.json.JSONObject;
 
 import CodigoJson.CodigoJSON;
 import persistencias.EspacioNatural;
+import persistencias.Informacion;
+import persistencias.InformacionEspacioNatural;
+import persistencias.Informaciones;
 import persistencias.Parque;
 import persistencias.Parques;
 
 public class PaquesNaturalesHelper {
 	
 	static Parques parques = new Parques();
+	static Informaciones informaciones = new Informaciones();
 	
 	public Connection createConnection() throws ClassNotFoundException, SQLException {
 		Connection connection = null;
@@ -133,6 +137,22 @@ public class PaquesNaturalesHelper {
 	   return resultado.toString();
 	}
 	
+	public static void convertirStringInfoToArrayJSON (String fichero) throws Exception {
+		JSONArray jsonArray = new JSONArray(fichero);
+		
+		for(int i = 0; i < jsonArray.length(); i++) {
+			JSONObject explrObject = jsonArray.getJSONObject(i);
+			
+			String nombre = (String) ((JSONObject)jsonArray.get(i)).get("NOMBRE");
+			String superficie = (String) ((JSONObject)jsonArray.get(i)).get("SUPERFICIE");
+			String fecha = (String) ((JSONObject)jsonArray.get(i)).get("FECHA DECLARACION");
+			
+			Informacion informacion = new Informacion(nombre, superficie, fecha);
+			informaciones.getListaInformacion().add(informacion);
+		}
+		//System.out.println(informaciones.getListaInformacion() + "\n");
+	}
+	
 	
 	public long insertPaques(Connection connection, EspacioNatural espacioNatural) throws SQLException {
 		long idParque = 0;
@@ -179,6 +199,135 @@ public class PaquesNaturalesHelper {
 		return idParque;
 	}
 	
+	public List<InformacionEspacioNatural> getIdParque (Connection connection) throws Exception {
+		
+		List<InformacionEspacioNatural> listaInfoEspacios = new ArrayList<>();
+		
+		String consultaSQL = "SELECT ID_ESPACIO FROM ESPACIOS_NATURALES"; 
+		
+		Statement statement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(consultaSQL);
+			
+			InformacionEspacioNatural info;
+			while(resultSet.next()) {
+				info = new InformacionEspacioNatural();
+				info.setIdEspacio(resultSet.getLong("ID_ESPACIO"));
+				
+				listaInfoEspacios.add(info);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listaInfoEspacios;
+	}
+	
+	public  boolean existeInformacion(Connection connection, int idParque) throws Exception {
+		
+		boolean exite = false;
+		
+		String consultaSQL = "SELECT NOMBRE FROM INFORMACION WHERE ID_ESPACIO = ?";
+		
+		PreparedStatement preparedStatement = null;
+		ResultSet resultset = null;
+		
+		try {
+			connection = createConnection();
+			
+			preparedStatement = connection.prepareStatement(consultaSQL);
+			preparedStatement.setInt(1, idParque);
+			resultset = preparedStatement.executeQuery();
+			
+			if(resultset.next()) {
+				exite = true;
+			}
+			
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (null != resultset) {
+				try {
+					resultset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != preparedStatement) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return exite;
+	}
+	
+	public  String insertInformacion(Connection connection, InformacionEspacioNatural informacionEN) throws SQLException {
+		
+		String nombre = null;
+
+		// Consulta SQL
+		String consultaSQL = "INSERT INTO INFORMACION (NOMBRE, SUPERFICIE_DECLARADA_TOTAL, FECHA_DECLARACION, ID_ESPACIO) VALUES (?,?,?,?)";
+		
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement(consultaSQL);
+			
+			preparedStatement.setString(1, informacionEN.getNombre());
+			preparedStatement.setString(2, informacionEN.getSuperficie());
+			preparedStatement.setString(3, informacionEN.getFechaDeclaracion());
+			preparedStatement.setLong(4, informacionEN.getIdEspacio());
+			if(preparedStatement.executeUpdate() > 0) {
+				nombre = informacionEN.getNombre();
+			}
+			
+			connection.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			connection.rollback();
+			throw e;
+		} finally {
+			if (null != preparedStatement) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return nombre;
+	}
+	
+	public void inicializarInformacion(Connection connection, Informaciones informaciones) throws Exception {
+		
+		boolean existeInfo = false;
+		
+		List<InformacionEspacioNatural> listInfoEspacios = new ArrayList<>();
+	    listInfoEspacios = getIdParque(connection);
+		
+		for(int i = 0; i < informaciones.getListaInformacion().size(); i++) {
+		    InformacionEspacioNatural informacionEN = new InformacionEspacioNatural();
+		    informacionEN.setNombre(informaciones.getListaInformacion().get(i).getNombre());
+		    informacionEN.setSuperficie(informaciones.getListaInformacion().get(i).getSuperficie());
+		    informacionEN.setFechaDeclaracion(informaciones.getListaInformacion().get(i).getFechaDeclaracion());
+		    informacionEN.setIdEspacio(listInfoEspacios.get(i).getIdEspacio());
+		    
+		    existeInfo = existeInformacion(connection, i);
+		    if(!existeInfo) {
+		    	insertInformacion(connection, informacionEN);
+		    }
+		}
+	}
+	
 	
 	public static void main(String [] args) throws Exception {
 		Connection connection;
@@ -188,6 +337,7 @@ public class PaquesNaturalesHelper {
 		 String url = "https://datosabiertos.castillalamancha.es/sites/datosabiertos.castillalamancha.es/files/espacios%20naturales.json";
 	        String json = "";
 	        String aJson = "";
+	        String aInfo = "";
 	
 	        FileWriter fw = null;
 	
@@ -205,9 +355,20 @@ public class PaquesNaturalesHelper {
 	        aJson = leerFichero("parques_naturales.json");
             convertirStringToArrayJSON(aJson);
             
+            aInfo = leerFichero("informacion_parques.json");
+            convertirStringInfoToArrayJSON(aInfo);
+            
             connection = helper.createConnection();
              
             inicializarParques(parques, connection, helper);
+            
+            helper.inicializarInformacion(connection, informaciones);
+            
+            List<InformacionEspacioNatural> listaInfoEspacios = helper.getIdParque(connection);
+            System.out.println(listaInfoEspacios);
+            
+            
+            
             
 			} catch (Exception e) {
 		        e.printStackTrace();

@@ -2,6 +2,7 @@ package persistencias;
 
 public class EspacioNatural {
 	
+	private long idEspacio;
 	private String categoria, provincia;
 	
 	public EspacioNatural(String categoria, String provincia) {
@@ -12,6 +13,14 @@ public class EspacioNatural {
 	
 	public EspacioNatural() {
 		
+	}
+
+	public long getIdEspacio() {
+		return idEspacio;
+	}
+
+	public void setIdEspacio(long idEspacio) {
+		this.idEspacio = idEspacio;
 	}
 
 	public String getCategoria() {
@@ -32,9 +41,6 @@ public class EspacioNatural {
 
 	@Override
 	public String toString() {
-		return "EspacioNatural [categoria=" + categoria + ", provincia=" + provincia + "]";
+		return "EspacioNatural [idEspacio=" + idEspacio + ", categoria=" + categoria + ", provincia=" + provincia + "]";
 	}
-	
-	
-
 }

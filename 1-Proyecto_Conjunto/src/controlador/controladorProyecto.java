@@ -41,14 +41,17 @@ public class controladorProyecto implements ActionListener{
 	
 	vistaProyecto vista = new vistaProyecto();
 	DefaultListModel<String> modelo = new DefaultListModel<>();
-	ArrayList<Parques> parque = new ArrayList<Parques>();
+	ArrayList<Parques> litsaParque = new ArrayList<Parques>();
+	Parque parque = new Parque();
 	List<EspacioNatural> listaProvincias = new ArrayList<EspacioNatural>();
+	List<EspacioNatural> listaCategorias = new ArrayList<EspacioNatural>();
 	static Parques parques = new Parques();
 	ArrayList<Informaciones> listInformaciones = new ArrayList<Informaciones>();
 	static Informaciones informaciones = new Informaciones();
 	boolean btnProvincia = false, btnTipo = false, btnSinfiltro = true;
 	String aJson, infoJson;
 	EspacioNatural espacioNatural = new EspacioNatural();
+	InformacionEspacioNatural informacionEn = new InformacionEspacioNatural();
 
 	public controladorProyecto(vistaProyecto vista) {
 		this.vista = vista;
@@ -196,52 +199,6 @@ public class controladorProyecto implements ActionListener{
 	   return resultado.toString();
 	}
 	
-	public List<EspacioNatural> getParquesOfCategoria(Connection connection, String categoria) throws ClassNotFoundException, SQLException{
-		
-		String consultaSQL = "SELECT CATEGORIA, PROVINCIA FROM ESPACIOS_NATURALES WHERE PROVINCIA LIKE ?";
-		
-		PreparedStatement preparedStatement = null;
-		ResultSet resultset = null;
-		
-		try {
-			connection = createConnection();
-			
-			preparedStatement = connection.prepareStatement(consultaSQL);
-			preparedStatement.setString(1, categoria);
-			resultset = preparedStatement.executeQuery();
-			
-			EspacioNatural parques;
-			while(resultset.next()) {
-				parques = new EspacioNatural();
-				parques.setCategoria(resultset.getString("CATEGORIA"));
-				parques.setProvincia(resultset.getString("PROVINCIA"));;
-				
-				listaProvincias.add(parques);
-			}
-			
-		}catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if (null != resultset) {
-				try {
-					resultset.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != preparedStatement) {
-				try {
-					preparedStatement.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		return listaProvincias;
-	} 
-	
 	public List<EspacioNatural> getParquesOfProvincia(Connection connection, String provincia) throws ClassNotFoundException, SQLException{
 		
 		String consultaSQL = "SELECT CATEGORIA, PROVINCIA FROM ESPACIOS_NATURALES WHERE PROVINCIA LIKE ?";
@@ -288,8 +245,54 @@ public class controladorProyecto implements ActionListener{
 		return listaProvincias;
 	} 
 	
-	public static boolean existeParque(Connection connection, int parque) throws Exception {
-		boolean exite = false;
+	public List<EspacioNatural> getParquesByCategoria(Connection connection, String categoria) throws ClassNotFoundException, SQLException{
+		
+		String consultaSQL = "SELECT CATEGORIA, PROVINCIA FROM ESPACIOS_NATURALES WHERE CATEGORIA = ?";
+		
+		PreparedStatement preparedStatement = null;
+		ResultSet resultset = null;
+		
+		try {
+			connection = createConnection();
+			
+			preparedStatement = connection.prepareStatement(consultaSQL);
+			preparedStatement.setString(1, categoria);
+			resultset = preparedStatement.executeQuery();
+			
+			EspacioNatural parques;
+			while(resultset.next()) {
+				parques = new EspacioNatural();
+				parques.setCategoria(resultset.getString("CATEGORIA"));
+				parques.setProvincia(resultset.getString("PROVINCIA"));;
+				
+				listaCategorias.add(parques);
+			}
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if (null != resultset) {
+				try {
+					resultset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != preparedStatement) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return listaCategorias;
+	} 
+	
+	public static boolean existeParque(Connection connection, long idParque) throws Exception {
+		boolean existe = false;
 		
 		String consultaSQL = "SELECT PROVINCIA FROM ESPACIOS_NATURALES WHERE ID_ESPACIO = ?";
 		
@@ -300,11 +303,11 @@ public class controladorProyecto implements ActionListener{
 			connection = createConnection();
 			
 			preparedStatement = connection.prepareStatement(consultaSQL);
-			preparedStatement.setInt(1, parque);
+			preparedStatement.setLong(1, idParque);
 			resultset = preparedStatement.executeQuery();
 			
 			if(resultset.next()) {
-				exite = true;
+				existe = true;
 			}
 			
 			
@@ -328,7 +331,7 @@ public class controladorProyecto implements ActionListener{
 			}
 		}
 		
-		return exite;
+		return existe;
 	}
 
 	
@@ -377,7 +380,7 @@ public class controladorProyecto implements ActionListener{
 	}
 	
 	
-	public static boolean existeInformacion(Connection connection, int idParque) throws Exception {
+	public static boolean existeInformacion(Connection connection, long idParque) throws Exception {
 		
 		boolean exite = false;
 		
@@ -390,7 +393,7 @@ public class controladorProyecto implements ActionListener{
 			connection = createConnection();
 			
 			preparedStatement = connection.prepareStatement(consultaSQL);
-			preparedStatement.setInt(1, idParque);
+			preparedStatement.setLong(1, idParque);
 			resultset = preparedStatement.executeQuery();
 			
 			if(resultset.next()) {
@@ -494,10 +497,10 @@ public class controladorProyecto implements ActionListener{
 		    espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 		    espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
 		    
-		    existeParque = existeParque(connection, i);
+		    /*existeParque = existeParque(connection, i);
 		    if(!existeParque) {
 		    	insertPaques(connection, espacioNatural);
-		    }
+		    }*/
 		}
 	}
 	
@@ -515,10 +518,10 @@ public class controladorProyecto implements ActionListener{
 		    informacionEN.setFechaDeclaracion(informaciones.getListaInformacion().get(i).getFechaDeclaracion());
 		    informacionEN.setIdEspacio(listInfoEspacios.get(i).getIdEspacio());
 		    
-		    existeInfo = existeInformacion(connection, i);
+		    /*existeInfo = existeInformacion(connection, i);
 		    if(!existeInfo) {
 		    	insertInformacion(connection, informacionEN);
-		    }
+		    }*/
 		}
 	}
 	
@@ -531,29 +534,84 @@ public class controladorProyecto implements ActionListener{
 		
 	}
 	
+	public void insertEspacioInformacion(Connection connection, long idParque, String nombre) throws Exception{
+		String consultaSQL = "INSERT INTO ESPACIO_INFORMACION (ID_ESPACIO, NOMBRE) VALUES (?,?)";
+		
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			preparedStatement = connection.prepareStatement(consultaSQL);
+			preparedStatement.setLong(1, idParque);
+			preparedStatement.setString(2, nombre);
+			preparedStatement.executeUpdate();
+			
+			connection.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			connection.rollback();
+			throw e;
+		} finally {
+			if (null != preparedStatement) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	/*public void asignarEspacioInformacion(Connection connection, EspacioNatural espacioNatural, InformacionEspacioNatural informacionEn) throws Exception{
+		
+		long idParque = insertPaques(connection, espacioNatural);
+		
+		boolean existeParque = existeParque(connection, idParque);
+	    if(!existeParque) {
+	    	insertPaques(connection, espacioNatural);
+	    }
+	    
+	    String nombre = insertInformacion(connection, informacionEn);
+	    boolean existeInfo = existeInformacion(connection, idParque);
+	    if(!existeInfo) {
+	    	insertInformacion(connection, informacionEn);
+	    	informacionEn.setNombre(nombre);
+	    }
+        
+		insertEspacioInformacion(connection, idParque, nombre);
+        inicializarParques(connection, parques);
+        inicializarInformacion(connection, informaciones);
+		
+	}*/
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == this.vista.btnIniciar) {
-			Connection connection;
+			Connection connection = null;
 			PaquesNaturalesHelper helper = new PaquesNaturalesHelper();
 				
 		     try {  
+		    	connection = createConnection();
 		    	generarFichero();
 			   	aJson = leerFichero("parques_naturales.json");
 		       	convertirStringToArrayJSON(aJson);
 		       	
 		       	infoJson = leerFichero("informacion_parques.json");
 		        convertirStringInfoToArrayJSON(infoJson);
+		        //asignarEspacioInformacion(connection, espacioNatural, informacionEn);
 		        
-		       	connection = createConnection();
-		             
 		        inicializarParques(connection, parques);
-		        
-		        inicializarInformacion(connection, informaciones);
-		        
+		        //inicializarInformacion(connection, informaciones);
 		        inicializarListaParques();
+		        
+		        connection.commit();
 			} catch (Exception s) {
+				try {
+					connection.rollback();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				s.printStackTrace();
 			}
 		    this.vista.panelPortada.setVisible(false);
@@ -597,100 +655,11 @@ public class controladorProyecto implements ActionListener{
 		}
 		
 		if(e.getSource() == this.vista.cBFiltros) {
-			Connection connection = null;
-			int num = this.vista.cBFiltros.getSelectedIndex();
+				filtrarProvincia();
+				
+				String categoria = vista.cBFiltros.getSelectedItem().toString();
+				getPrueba(categoria);
 			
-			
-			if(this.vista.cBFiltros.getSelectedItem().equals("Ciudad Real")) {
-				try {
-					connection = createConnection();
-					
-					List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Ciu%");
-					
-					modelo.removeAllElements();
-					for (int i = 0; i < listaProvincias.size(); i++) {
-						modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
-					}
-					vista.listaParques.setModel(modelo);
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				} 
-				
-			}else if(this.vista.cBFiltros.getSelectedItem().equals("Cuenca")) {
-				
-				try {
-					connection = createConnection();
-					
-					List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Cue%");
-					
-					modelo.removeAllElements();
-					for (int i = 0; i < listaProvincias.size(); i++) {
-						modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
-					}
-					vista.listaParques.setModel(modelo);
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				
-			}else if(this.vista.cBFiltros.getSelectedItem().equals("Albacete")) {
-				
-				try {
-					connection = createConnection();
-					
-					List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Alb%");
-					
-					modelo.removeAllElements();
-					for (int i = 0; i < listaProvincias.size(); i++) {
-						modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
-					}
-					vista.listaParques.setModel(modelo);
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				
-			}else if(this.vista.cBFiltros.getSelectedItem().equals("Toledo")) {
-				
-				try {
-					connection = createConnection();
-					
-					List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Tol%");
-					
-					modelo.removeAllElements();
-					for (int i = 0; i < listaProvincias.size(); i++) {
-						modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
-					}
-					vista.listaParques.setModel(modelo);
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				
-			}else if(this.vista.cBFiltros.getSelectedItem().equals("Guadalajara")) {
-				
-				try {
-					connection = createConnection();
-					
-					List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Gua%");
-					
-					modelo.removeAllElements();
-					for (int i = 0; i < listaProvincias.size(); i++) {
-						modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
-					}
-					vista.listaParques.setModel(modelo);
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				
-			}
 			
 		}
 		
@@ -829,5 +798,123 @@ public class controladorProyecto implements ActionListener{
 			}
 		});
 		
+	}
+
+	public void getPrueba(String categoria) {
+			Connection connection;
+			try {
+				connection = createConnection();
+				
+				List<EspacioNatural> listaCategorias =  getParquesByCategoria(connection, categoria);
+				
+				modelo.removeAllElements();
+				for (int i = 0; i < listaCategorias.size(); i++) {
+					modelo.addElement("Categoria: " + listaCategorias.get(i).getCategoria() + " / Provincia: " + listaCategorias.get(i).getProvincia());
+				}
+				vista.listaParques.setModel(modelo);
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+	}
+
+	public void filtrarProvincia() {
+		Connection connection;
+		//vista.listaParques.removeAll();
+		if(this.vista.cBFiltros.getSelectedItem().equals("Ciudad Real")) {
+			try {
+				connection = createConnection();
+				
+				List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Ciu%");
+				
+				modelo.removeAllElements();
+				for (int i = 0; i < listaProvincias.size(); i++) {
+					modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
+				}
+				vista.listaParques.setModel(modelo);
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			} 
+			
+		}
+		if(this.vista.cBFiltros.getSelectedItem().equals("Cuenca")) {
+			
+			try {
+				connection = createConnection();
+				
+				List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Cue%");
+				
+				modelo.removeAllElements();
+				for (int i = 0; i < listaProvincias.size(); i++) {
+					modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
+				}
+				vista.listaParques.setModel(modelo);
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+		}
+		if(this.vista.cBFiltros.getSelectedItem().equals("Albacete")) {
+			
+			try {
+				connection = createConnection();
+				
+				List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Alb%");
+				
+				modelo.removeAllElements();
+				for (int i = 0; i < listaProvincias.size(); i++) {
+					modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
+				}
+				vista.listaParques.setModel(modelo);
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+		}
+		if(this.vista.cBFiltros.getSelectedItem().equals("Toledo")) {
+			
+			try {
+				connection = createConnection();
+				
+				List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Tol%");
+				
+				modelo.removeAllElements();
+				for (int i = 0; i < listaProvincias.size(); i++) {
+					modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
+				}
+				vista.listaParques.setModel(modelo);
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+		}
+		if(this.vista.cBFiltros.getSelectedItem().equals("Guadalajara")) {
+			
+			try {
+				connection = createConnection();
+				
+				List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Gua%");
+				
+				modelo.removeAllElements();
+				for (int i = 0; i < listaProvincias.size(); i++) {
+					modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
+				}
+				vista.listaParques.setModel(modelo);
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+		}
 	}
 }
