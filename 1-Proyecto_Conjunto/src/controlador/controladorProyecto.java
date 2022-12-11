@@ -655,12 +655,11 @@ public class controladorProyecto implements ActionListener{
 		}
 		
 		if(e.getSource() == this.vista.cBFiltros) {
+			
 				filtrarProvincia();
 				
-				String categoria = vista.cBFiltros.getSelectedItem().toString();
-				getPrueba(categoria);
-			
-			
+				/*String categoria = vista.cBFiltros.getSelectedItem().toString();
+				getCategoria(categoria);*/
 		}
 		
 		this.vista.listaParques.addMouseListener(new MouseAdapter() {
@@ -800,7 +799,7 @@ public class controladorProyecto implements ActionListener{
 		
 	}
 
-	public void getPrueba(String categoria) {
+	public void getCategoria(String categoria) {
 			Connection connection;
 			try {
 				connection = createConnection();
