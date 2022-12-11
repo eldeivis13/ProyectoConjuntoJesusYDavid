@@ -655,11 +655,66 @@ public class ControladorProyecto implements ActionListener{
 		
 		if(e.getSource() == this.vista.cBFiltros) {
 			
-				filtrarProvincia();
+			if(this.vista.cBFiltros.getSelectedItem().equals("Ciudad Real")) {
+				
+				modelo.removeAllElements();
+				for (int i = 0; i < parques.getListaParques().size(); i++) {
+					if(parques.getListaParques().get(i).getProvincia().contains("Ciudad Real")) {
+					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
+				}
+				vista.listaParques.setModel(modelo);
+			} 
+			
+		}
+		if(this.vista.cBFiltros.getSelectedItem().equals("Cuenca")) {
+			
+				modelo.removeAllElements();
+				for (int i = 0; i < parques.getListaParques().size(); i++) {
+					if(parques.getListaParques().get(i).getProvincia().contains("Cuenca")) {
+					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
+					}
+				}
+				vista.listaParques.setModel(modelo);
+			
+			
+		}
+		if(this.vista.cBFiltros.getSelectedItem().equals("Albacete")) {
+			
+				modelo.removeAllElements();
+				for (int i = 0; i < parques.getListaParques().size(); i++) {
+					if(parques.getListaParques().get(i).getProvincia().contains("Albacete")) {
+						modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
+						}
+				}
+				vista.listaParques.setModel(modelo);
+			
+		}
+		if(this.vista.cBFiltros.getSelectedItem().equals("Toledo")) {
+			
+				modelo.removeAllElements();
+				for (int i = 0; i < parques.getListaParques().size(); i++) {
+					if(parques.getListaParques().get(i).getProvincia().contains("Toledo")) {
+						modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
+						}
+				}
+				vista.listaParques.setModel(modelo);
+		}
+		if(this.vista.cBFiltros.getSelectedItem().equals("Guadalajara")) {
+			
+				modelo.removeAllElements();
+				for (int i = 0; i < parques.getListaParques().size(); i++) {
+					if(parques.getListaParques().get(i).getProvincia().contains("Guadalajara")) {
+						modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
+						}
+				}
+				vista.listaParques.setModel(modelo);
+			
+		}
+	}
 				
 				/*String categoria = vista.cBFiltros.getSelectedItem().toString();
 				getCategoria(categoria);*/
-		}
+		
 		
 		this.vista.listaParques.addMouseListener(new MouseAdapter() {
 			 public void mouseClicked(MouseEvent me) {
@@ -817,102 +872,61 @@ public class ControladorProyecto implements ActionListener{
 			}
 	}
 
-	public void filtrarProvincia() {
-		Connection connection;
-		//vista.listaParques.removeAll();
+	/*public void filtrarProvincia() throws ClassNotFoundException, SQLException {
 		if(this.vista.cBFiltros.getSelectedItem().equals("Ciudad Real")) {
-			try {
-				connection = createConnection();
-				
-				List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Ciu%");
-				
+			
 				modelo.removeAllElements();
 				for (int i = 0; i < listaProvincias.size(); i++) {
+					if(parques.getListaParques().get(i).getProvincia().contains("Ciudad Real")) {
 					modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
 				}
 				vista.listaParques.setModel(modelo);
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
 			} 
 			
 		}
 		if(this.vista.cBFiltros.getSelectedItem().equals("Cuenca")) {
 			
-			try {
-				connection = createConnection();
-				
-				List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Cue%");
-				
 				modelo.removeAllElements();
 				for (int i = 0; i < listaProvincias.size(); i++) {
+					if(parques.getListaParques().get(i).getProvincia().contains("Cuenca")) {
 					modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
+					}
 				}
 				vista.listaParques.setModel(modelo);
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			
 			
 		}
 		if(this.vista.cBFiltros.getSelectedItem().equals("Albacete")) {
 			
-			try {
-				connection = createConnection();
-				
-				List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Alb%");
-				
 				modelo.removeAllElements();
 				for (int i = 0; i < listaProvincias.size(); i++) {
-					modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
+					if(parques.getListaParques().get(i).getProvincia().contains("Albacete")) {
+						modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
+						}
 				}
 				vista.listaParques.setModel(modelo);
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
 			
 		}
 		if(this.vista.cBFiltros.getSelectedItem().equals("Toledo")) {
 			
-			try {
-				connection = createConnection();
-				
-				List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Tol%");
-				
 				modelo.removeAllElements();
 				for (int i = 0; i < listaProvincias.size(); i++) {
-					modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
+					if(parques.getListaParques().get(i).getProvincia().contains("Toledo")) {
+						modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
+						}
 				}
 				vista.listaParques.setModel(modelo);
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			
 		}
 		if(this.vista.cBFiltros.getSelectedItem().equals("Guadalajara")) {
 			
-			try {
-				connection = createConnection();
-				
-				List<EspacioNatural> listaProvincias =  getParquesOfProvincia(connection, "%Gua%");
-				
 				modelo.removeAllElements();
 				for (int i = 0; i < listaProvincias.size(); i++) {
-					modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
+					if(parques.getListaParques().get(i).getProvincia().contains("Guadalajara")) {
+						modelo.addElement("Categoria: " + listaProvincias.get(i).getCategoria() + " / Provincia: " + listaProvincias.get(i).getProvincia());
+						}
 				}
 				vista.listaParques.setModel(modelo);
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
 			
 		}
-	}
+	}*/
 }
