@@ -3,16 +3,20 @@ package persistencias;
 public class EspacioNatural {
 	
 	private long idEspacio;
-	private String categoria, provincia;
-	
-	public EspacioNatural(String categoria, String provincia) {
-		super();
-		this.categoria = categoria;
-		this.provincia = provincia;
-	}
+	private String categoria, provincia, nombre, superficie, fechaDeclaracion;
 	
 	public EspacioNatural() {
 		
+	}
+
+	public EspacioNatural(long idEspacio, String categoria, String provincia, String nombre, String superficie, String fechaDeclaracion) {
+		
+		this.idEspacio = idEspacio;
+		this.categoria = categoria;
+		this.provincia = provincia;
+		this.nombre = nombre;
+		this.superficie = superficie;
+		this.fechaDeclaracion = fechaDeclaracion;
 	}
 
 	public long getIdEspacio() {
@@ -39,8 +43,33 @@ public class EspacioNatural {
 		this.provincia = provincia;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getSuperficie() {
+		return superficie;
+	}
+
+	public void setSuperficie(String superficie) {
+		this.superficie = superficie;
+	}
+
+	public String getFechaDeclaracion() {
+		return fechaDeclaracion;
+	}
+
+	public void setFechaDeclaracion(String fechaDeclaracion) {
+		this.fechaDeclaracion = fechaDeclaracion;
+	}
+
 	@Override
 	public String toString() {
-		return "EspacioNatural [idEspacio=" + idEspacio + ", categoria=" + categoria + ", provincia=" + provincia + "]";
+		return "EspacioNatural [idEspacio=" + idEspacio + ", categoria=" + categoria + ", provincia=" + provincia
+				+ ", nombre=" + nombre + ", superficie=" + superficie + ", fechaDeclaracion=" + fechaDeclaracion + "]";
 	}
 }

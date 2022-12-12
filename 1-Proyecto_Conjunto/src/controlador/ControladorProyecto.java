@@ -131,36 +131,52 @@ public class ControladorProyecto implements ActionListener{
 		return fichero;
 	}
 	
-	public static void convertirStringToArrayJSON (String fichero) throws Exception {
+	public static long convertirStringToArrayJSON (String fichero1) throws Exception {
 		
-		JSONArray jsonArray = new JSONArray(fichero);
+		JSONArray jsonArray1 = new JSONArray(fichero1);
 		
-		for(int i = 0; i < jsonArray.length(); i++) {
-			JSONObject explrObject = jsonArray.getJSONObject(i);
+		long posicion = 0;
+		
+		for(int i = 0; i < jsonArray1.length(); i++) {
+			JSONObject explrObjectParque = jsonArray1.getJSONObject(i);
+			String categoria = (String) (explrObjectParque).get("ESPACIOS NATURALES PROTEGIDOS EN CASTILLA-LA MANCHA (2018)");
+			String provincia = (String) (explrObjectParque).get("");
 			
-			String categoria = (String) ((JSONObject)jsonArray.get(i)).get("ESPACIOS NATURALES PROTEGIDOS EN CASTILLA-LA MANCHA (2018)");
-			String provincia = (String) ((JSONObject)jsonArray.get(i)).get("");
-			
+			posicion = i;
 			Parque parque = new Parque(categoria, provincia);
-			parques.getListaParques().add(parque);
+			//parques.getListaParques().add(parque);
 		}
-	}
-	
-	public static void convertirStringInfoToArrayJSON (String fichero) throws Exception {
-		JSONArray jsonArray = new JSONArray(fichero);
-		
-		for(int i = 0; i < jsonArray.length(); i++) {
-			JSONObject explrObject = jsonArray.getJSONObject(i);
-			
-			String nombre = (String) ((JSONObject)jsonArray.get(i)).get("NOMBRE");
-			String superficie = (String) ((JSONObject)jsonArray.get(i)).get("SUPERFICIE");
-			String fecha = (String) ((JSONObject)jsonArray.get(i)).get("FECHA DECLARACION");
-			
-			Informacion informacion = new Informacion(nombre, superficie, fecha);
-			informaciones.getListaInformacion().add(informacion);
-		}
+		return posicion;
 	}
 
+	public static long convertirStringToArrayJsonInformacion(String fichero2) {
+		
+		JSONArray jsonArray2 = new JSONArray(fichero2);
+		
+		long posicion2 = 0;
+		
+		for(int j = 0; j < jsonArray2.length(); j++) {
+			JSONObject explrObjectInfo = jsonArray2.getJSONObject(j);
+			
+			String nombre = (String) (explrObjectInfo).getString("NOMBRE");
+			String superficie = (String) (explrObjectInfo).getString("SUPERFICIE");
+			String fecha = (String) (explrObjectInfo).getString("FECHA DECLARACION");
+			
+			posicion2 = j;
+			Parque parque = new Parque(nombre, superficie, fecha);
+		}
+		return posicion2;
+	}
+	
+	public void relacionarFicheros (long posicion, long posicion2) throws Exception{
+		
+		String aJson = leerFichero("parques_naturales.json");
+	   	String infoJson = leerFichero("informacion_parques.json");
+		
+		convertirStringToArrayJSON(aJson);
+		convertirStringToArrayJsonInformacion(infoJson);
+	}
+	
 	public String peticionHttpGet(String urlParaVisitar) throws Exception {
 	   StringBuilder resultado = new StringBuilder();
 	   URL url = new URL(urlParaVisitar);
@@ -175,98 +191,6 @@ public class ControladorProyecto implements ActionListener{
 	   rd.close();
 	   return resultado.toString();
 	}
-	
-	/*public List<EspacioNatural> getParquesOfProvincia(Connection connection, String provincia) throws ClassNotFoundException, SQLException{
-		
-		String consultaSQL = "SELECT CATEGORIA, PROVINCIA FROM ESPACIOS_NATURALES WHERE PROVINCIA LIKE ?";
-		
-		PreparedStatement preparedStatement = null;
-		ResultSet resultset = null;
-		
-		try {
-			connection = createConnection();
-			
-			preparedStatement = connection.prepareStatement(consultaSQL);
-			preparedStatement.setString(1, provincia);
-			resultset = preparedStatement.executeQuery();
-			
-			EspacioNatural parques;
-			while(resultset.next()) {
-				parques = new EspacioNatural();
-				parques.setCategoria(resultset.getString("CATEGORIA"));
-				parques.setProvincia(resultset.getString("PROVINCIA"));;
-				
-				listaProvincias.add(parques);
-			}
-			
-		}catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if (null != resultset) {
-				try {
-					resultset.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != preparedStatement) {
-				try {
-					preparedStatement.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		return listaProvincias;
-	} */
-	
-	/*public List<EspacioNatural> getParquesByCategoria(Connection connection, String categoria) throws ClassNotFoundException, SQLException{
-		
-		String consultaSQL = "SELECT CATEGORIA, PROVINCIA FROM ESPACIOS_NATURALES WHERE CATEGORIA = ?";
-		
-		PreparedStatement preparedStatement = null;
-		ResultSet resultset = null;
-		
-		try {
-			connection = createConnection();
-			
-			preparedStatement = connection.prepareStatement(consultaSQL);
-			preparedStatement.setString(1, categoria);
-			resultset = preparedStatement.executeQuery();
-			
-			EspacioNatural parques;
-			while(resultset.next()) {
-				parques = new EspacioNatural();
-				parques.setCategoria(resultset.getString("CATEGORIA"));
-				parques.setProvincia(resultset.getString("PROVINCIA"));;
-				
-				listaCategorias.add(parques);
-			}
-			
-		}catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if (null != resultset) {
-				try {
-					resultset.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (null != preparedStatement) {
-				try {
-					preparedStatement.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		return listaCategorias;
-	} */
 	
 	public static boolean existeParque(Connection connection, long idParque) throws Exception {
 		boolean existe = false;
@@ -315,7 +239,7 @@ public class ControladorProyecto implements ActionListener{
 		
 		long idParque = 0;
 
-		String consultaSQL = "INSERT INTO ESPACIOS_NATURALES (CATEGORIA, PROVINCIA) VALUES (?,?)";
+		String consultaSQL = "INSERT INTO ESPACIOS_NATURALES (CATEGORIA, PROVINCIA, NOMBRE, SUPERFICIE_DECLARADA_TOTAL, FECHA_DECLARACION) VALUES (?,?,?,?,?)";
 		
 		PreparedStatement preparedStatement = null;
 		ResultSet generatedKeys = null;
@@ -324,6 +248,9 @@ public class ControladorProyecto implements ActionListener{
 			
 			preparedStatement.setString(1, espacioNatural.getCategoria());
 			preparedStatement.setString(2, espacioNatural.getProvincia());
+			preparedStatement.setString(3, espacioNatural.getNombre());
+			preparedStatement.setString(4, espacioNatural.getSuperficie());
+			preparedStatement.setString(5, espacioNatural.getFechaDeclaracion());
 			if(preparedStatement.executeUpdate() > 0) {
 				generatedKeys = preparedStatement.getGeneratedKeys();
 				if(generatedKeys.next()) {
@@ -354,7 +281,7 @@ public class ControladorProyecto implements ActionListener{
 		return idParque;
 	}
 	
-	public static boolean existeInformacion(Connection connection, long idParque) throws Exception {
+	/*public static boolean existeInformacion(Connection connection, long idParque) throws Exception {
 		
 		boolean exite = false;
 		
@@ -432,11 +359,11 @@ public class ControladorProyecto implements ActionListener{
 			}
 		}
 		return nombre;
-	}
+	}*/
 
-	public static List<InformacionEspacioNatural> getIdParque (Connection connection) throws Exception {
+	/*public static List<InformacionEspacioNatural> getIdParque (Connection connection) throws Exception {
 		
-		List<InformacionEspacioNatural> listaInfoEspacios = new ArrayList<>();
+		List<InformacionEspacioNatural> listaInfoEspacios = new ArrayList<InformacionEspacioNatural>();
 		
 		String consultaSQL = "SELECT ID_ESPACIO FROM ESPACIOS_NATURALES"; 
 		
@@ -460,7 +387,7 @@ public class ControladorProyecto implements ActionListener{
 		
 		
 		return listaInfoEspacios;
-	}
+	}*/
 	
 	public static void inicializarParques(Connection connection, Parques parques) throws Exception {
 		
@@ -469,6 +396,9 @@ public class ControladorProyecto implements ActionListener{
 		    EspacioNatural espacioNatural = new EspacioNatural();
 		    espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 		    espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+		    espacioNatural.setNombre(parques.getListaParques().get(i).getNombre());
+		    espacioNatural.setSuperficie(parques.getListaParques().get(i).getSuperficie());
+		    espacioNatural.setFechaDeclaracion(parques.getListaParques().get(i).getFechaDeclarada());
 		    
 		    existeParque = existeParque(connection, i);
 		    if(!existeParque) {
@@ -477,26 +407,25 @@ public class ControladorProyecto implements ActionListener{
 		}
 	}
 	
-	public static void inicializarInformacion(Connection connection, Informaciones informaciones) throws Exception {
+	/*public static void inicializarInformacion(Connection connection, Informaciones informaciones) throws Exception {
 		
 		boolean existeInfo = false;
 		
-		List<InformacionEspacioNatural> listInfoEspacios = new ArrayList<>();
-	    listInfoEspacios = getIdParque(connection);
-		
+		List<InformacionEspacioNatural> listInfo = new ArrayList<>();
+		listInfo = getIdParque(connection);
 		for(int i = 0; i < informaciones.getListaInformacion().size(); i++) {
 		    InformacionEspacioNatural informacionEN = new InformacionEspacioNatural();
 		    informacionEN.setNombre(informaciones.getListaInformacion().get(i).getNombre());
 		    informacionEN.setSuperficie(informaciones.getListaInformacion().get(i).getSuperficie());
 		    informacionEN.setFechaDeclaracion(informaciones.getListaInformacion().get(i).getFechaDeclaracion());
-		    informacionEN.setIdEspacio(listInfoEspacios.get(i).getIdEspacio());
+		    informacionEN.setIdEspacio(listInfo.get(i).getIdEspacio());
 		    
-		    /*existeInfo = existeInformacion(connection, i);
+		    existeInfo = existeInformacion(connection, informacionEN.getIdEspacio());
 		    if(!existeInfo) {
 		    	insertInformacion(connection, informacionEN);
-		    }*/
+		    }
 		}
-	}
+	}*/
 	
 	public void inicializarListaParques() {	
 		modelo.removeAllElements();
@@ -507,7 +436,7 @@ public class ControladorProyecto implements ActionListener{
 		
 	}
 	
-	public void insertEspacioInformacion(Connection connection, long idParque, String nombre) throws Exception{
+	/*public void insertEspacioInformacion(Connection connection, long idParque, String nombre) throws Exception{
 		String consultaSQL = "INSERT INTO ESPACIO_INFORMACION (ID_ESPACIO, NOMBRE) VALUES (?,?)";
 		
 		PreparedStatement preparedStatement = null;
@@ -532,28 +461,43 @@ public class ControladorProyecto implements ActionListener{
 				}
 			}
 		}
-	}
+	}*/
 	
-	/*public void asignarEspacioInformacion(Connection connection, EspacioNatural espacioNatural, InformacionEspacioNatural informacionEn) throws Exception{
+	/*public void asignarEspacioInformacion(Connection connection, Parques parques, Informaciones informaciones) throws Exception{
 		
 		long idParque = insertPaques(connection, espacioNatural);
 		
-		boolean existeParque = existeParque(connection, idParque);
-	    if(!existeParque) {
-	    	insertPaques(connection, espacioNatural);
-	    }
-	    
-	    String nombre = insertInformacion(connection, informacionEn);
-	    boolean existeInfo = existeInformacion(connection, idParque);
-	    if(!existeInfo) {
-	    	insertInformacion(connection, informacionEn);
-	    	informacionEn.setNombre(nombre);
-	    }
-        
-		insertEspacioInformacion(connection, idParque, nombre);
-        inicializarParques(connection, parques);
-        inicializarInformacion(connection, informaciones);
+		boolean existeParque = false;
+		for(int i = 1; i < parques.getListaParques().size(); i++) {
+			EspacioNatural espacioNatural = new EspacioNatural();
+		    espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
+		    espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+		    
+		    existeParque = existeParque(connection, i);
+		    if(!existeParque) {
+		    	insertPaques(connection, espacioNatural);
+		    }
+		}
 		
+	    String nombre = insertInformacion(connection, informacionEn);
+	    boolean existeInfo = false;
+		
+		List<InformacionEspacioNatural> listInfo = new ArrayList<>();
+	    listInfo = getIdParque(connection);
+		
+		for(int i = 0; i < informaciones.getListaInformacion().size(); i++) {
+			InformacionEspacioNatural informacionEn = new InformacionEspacioNatural();
+		    informacionEn.setNombre(informaciones.getListaInformacion().get(i).getNombre());
+		    informacionEn.setSuperficie(informaciones.getListaInformacion().get(i).getSuperficie());
+		    informacionEn.setFechaDeclaracion(informaciones.getListaInformacion().get(i).getFechaDeclaracion());
+		    informacionEn.setIdEspacio(listInfo.get(i).getIdEspacio());
+		    
+		    existeInfo = existeInformacion(connection, i);
+		    if(!existeInfo) {
+		    	insertInformacion(connection, informacionEn);
+		    }
+		}
+		insertEspacioInformacion(connection, idParque, nombre);
 	}*/
 	
 	@Override
@@ -565,15 +509,16 @@ public class ControladorProyecto implements ActionListener{
 		     try {  
 		    	connection = createConnection();
 		    	generarFichero();
-			   	aJson = leerFichero("parques_naturales.json");
-		       	convertirStringToArrayJSON(aJson);
+			   	//aJson = leerFichero("parques_naturales.json");
+			   	//infoJson = leerFichero("informacion_parques.json");
+		       	//convertirStringToArrayJSON(aJson, infoJson);
 		       	
-		       	infoJson = leerFichero("informacion_parques.json");
-		        convertirStringInfoToArrayJSON(infoJson);
-		        //asignarEspacioInformacion(connection, espacioNatural, informacionEn);
+		        //convertirStringInfoToArrayJSON(aJson, infoJson);
 		        
+		       	//asignarEspacioInformacion(connection, parques, informaciones);
 		        inicializarParques(connection, parques);
 		        //inicializarInformacion(connection, informaciones);
+		       	
 		        inicializarListaParques();
 		        
 		        connection.commit();
@@ -581,7 +526,6 @@ public class ControladorProyecto implements ActionListener{
 				try {
 					connection.rollback();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				s.printStackTrace();
@@ -645,17 +589,26 @@ public class ControladorProyecto implements ActionListener{
 		               if(btnSinfiltro == true) {
 		            	   vista.lblCategoriaMostrar.setText(parques.getListaParques().get(index).getCategoria());
 			               vista.lblProvinciaMostrar.setText(parques.getListaParques().get(index).getProvincia());
+			               vista.lblNombreMostrar.setText(parques.getListaParques().get(index).getNombre());
+			               vista.lblSDTMostrar.setText(parques.getListaParques().get(index).getSuperficie());
+			               vista.lblFechaDeclaracionMostrar.setText(parques.getListaParques().get(index).getFechaDeclarada());
 			               
 			               getFotosSinFiltro(index);
 			               
 		               }else if(btnProvincia == true) {
 		            	   vista.lblCategoriaMostrar.setText(listaProvincias.get(index).getCategoria());
 			               vista.lblProvinciaMostrar.setText(listaProvincias.get(index).getProvincia());
+			               vista.lblNombreMostrar.setText(listaProvincias.get(index).getNombre());
+			               vista.lblSDTMostrar.setText(listaProvincias.get(index).getSuperficie());
+			               vista.lblFechaDeclaracionMostrar.setText(listaProvincias.get(index).getFechaDeclaracion());
 			               getFotosProvincias(index);
 			               
 		               }else if(btnTipo == true) {
 		            	   vista.lblCategoriaMostrar.setText(listaCategorias.get(index).getCategoria());
 			               vista.lblProvinciaMostrar.setText(listaCategorias.get(index).getProvincia());
+			               vista.lblNombreMostrar.setText(listaCategorias.get(index).getNombre());
+			               vista.lblSDTMostrar.setText(listaCategorias.get(index).getSuperficie());
+			               vista.lblFechaDeclaracionMostrar.setText(listaCategorias.get(index).getFechaDeclaracion());
 			               getFotosCategorias(index);
 		               }
 		            }
@@ -860,9 +813,13 @@ public class ControladorProyecto implements ActionListener{
 					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
 					espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 					espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+					espacioNatural.setNombre(parques.getListaParques().get(i).getFechaDeclarada());
+					espacioNatural.setSuperficie(parques.getListaParques().get(i).getSuperficie());
+					espacioNatural.setFechaDeclaracion(parques.getListaParques().get(i).getFechaDeclarada());
+					
 					listaCategorias.add(espacioNatural);
 			}
-			vista.listaParques.setModel(modelo);
+				vista.listaParques.setModel(modelo);
 			}
 		
 		}else if(this.vista.cBFiltros.getSelectedItem().equals("Reserva Fluvial")) {
@@ -874,6 +831,10 @@ public class ControladorProyecto implements ActionListener{
 					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
 					espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 					espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+					espacioNatural.setNombre(parques.getListaParques().get(i).getFechaDeclarada());
+					espacioNatural.setSuperficie(parques.getListaParques().get(i).getSuperficie());
+					espacioNatural.setFechaDeclaracion(parques.getListaParques().get(i).getFechaDeclarada());
+					
 					listaCategorias.add(espacioNatural);
 			}
 			vista.listaParques.setModel(modelo);
@@ -888,6 +849,10 @@ public class ControladorProyecto implements ActionListener{
 					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
 					espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 					espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+					espacioNatural.setNombre(parques.getListaParques().get(i).getFechaDeclarada());
+					espacioNatural.setSuperficie(parques.getListaParques().get(i).getSuperficie());
+					espacioNatural.setFechaDeclaracion(parques.getListaParques().get(i).getFechaDeclarada());
+					
 					listaCategorias.add(espacioNatural);
 			}
 			vista.listaParques.setModel(modelo);
@@ -902,6 +867,10 @@ public class ControladorProyecto implements ActionListener{
 					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
 					espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 					espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+					espacioNatural.setNombre(parques.getListaParques().get(i).getFechaDeclarada());
+					espacioNatural.setSuperficie(parques.getListaParques().get(i).getSuperficie());
+					espacioNatural.setFechaDeclaracion(parques.getListaParques().get(i).getFechaDeclarada());
+					
 					listaCategorias.add(espacioNatural);
 			}
 			vista.listaParques.setModel(modelo);
@@ -915,6 +884,10 @@ public class ControladorProyecto implements ActionListener{
 					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
 					espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 					espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+					espacioNatural.setNombre(parques.getListaParques().get(i).getFechaDeclarada());
+					espacioNatural.setSuperficie(parques.getListaParques().get(i).getSuperficie());
+					espacioNatural.setFechaDeclaracion(parques.getListaParques().get(i).getFechaDeclarada());
+					
 					listaCategorias.add(espacioNatural);
 			}
 			vista.listaParques.setModel(modelo);
@@ -928,6 +901,10 @@ public class ControladorProyecto implements ActionListener{
 					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
 					espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 					espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+					espacioNatural.setNombre(parques.getListaParques().get(i).getFechaDeclarada());
+					espacioNatural.setSuperficie(parques.getListaParques().get(i).getSuperficie());
+					espacioNatural.setFechaDeclaracion(parques.getListaParques().get(i).getFechaDeclarada());
+					
 					listaCategorias.add(espacioNatural);
 			}
 			vista.listaParques.setModel(modelo);
@@ -946,11 +923,14 @@ public class ControladorProyecto implements ActionListener{
 					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
 					espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 					espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+					espacioNatural.setNombre(parques.getListaParques().get(i).getNombre());
+					espacioNatural.setSuperficie(parques.getListaParques().get(i).getSuperficie());
+					espacioNatural.setFechaDeclaracion(parques.getListaParques().get(i).getFechaDeclarada());
+					
 					listaProvincias.add(espacioNatural);
 			}
-			//vista.listaParques.setModel(modelo);
+				vista.listaParques.setModel(modelo);
 		}
-		vista.listaParques.setModel(modelo);
 			
 		}else if(this.vista.cBFiltros.getSelectedItem().equals("Albacete")) {
 			modelo.removeAllElements();
@@ -961,10 +941,14 @@ public class ControladorProyecto implements ActionListener{
 					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
 					espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 					espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+					espacioNatural.setNombre(parques.getListaParques().get(i).getNombre());
+					espacioNatural.setSuperficie(parques.getListaParques().get(i).getSuperficie());
+					espacioNatural.setFechaDeclaracion(parques.getListaParques().get(i).getFechaDeclarada());
+					
 					listaProvincias.add(espacioNatural);
 			}
-			vista.listaParques.setModel(modelo);
-			}
+				vista.listaParques.setModel(modelo);
+		}
 		
 		}else if(this.vista.cBFiltros.getSelectedItem().equals("Cuenca")) {
 			modelo.removeAllElements();
@@ -975,10 +959,14 @@ public class ControladorProyecto implements ActionListener{
 					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
 					espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 					espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+					espacioNatural.setNombre(parques.getListaParques().get(i).getNombre());
+					espacioNatural.setSuperficie(parques.getListaParques().get(i).getSuperficie());
+					espacioNatural.setFechaDeclaracion(parques.getListaParques().get(i).getFechaDeclarada());
+					
 					listaProvincias.add(espacioNatural);
 			}
-			vista.listaParques.setModel(modelo);
-			}
+				vista.listaParques.setModel(modelo);
+		}
 		
 		}else if(this.vista.cBFiltros.getSelectedItem().equals("Guadalajara")) {
 			modelo.removeAllElements();
@@ -989,10 +977,14 @@ public class ControladorProyecto implements ActionListener{
 					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
 					espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 					espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+					espacioNatural.setNombre(parques.getListaParques().get(i).getNombre());
+					espacioNatural.setSuperficie(parques.getListaParques().get(i).getSuperficie());
+					espacioNatural.setFechaDeclaracion(parques.getListaParques().get(i).getFechaDeclarada());
+					
 					listaProvincias.add(espacioNatural);
 			}
-			vista.listaParques.setModel(modelo);
-			}
+				vista.listaParques.setModel(modelo);
+		}
 			
 		}else if(this.vista.cBFiltros.getSelectedItem().equals("Toledo")) {
 			modelo.removeAllElements();
@@ -1003,10 +995,14 @@ public class ControladorProyecto implements ActionListener{
 					modelo.addElement("Categoria: " + parques.getListaParques().get(i).getCategoria() + " / Provincia: " + parques.getListaParques().get(i).getProvincia());
 					espacioNatural.setCategoria(parques.getListaParques().get(i).getCategoria());
 					espacioNatural.setProvincia(parques.getListaParques().get(i).getProvincia());
+					espacioNatural.setNombre(parques.getListaParques().get(i).getNombre());
+					espacioNatural.setSuperficie(parques.getListaParques().get(i).getSuperficie());
+					espacioNatural.setFechaDeclaracion(parques.getListaParques().get(i).getFechaDeclarada());
+					
 					listaProvincias.add(espacioNatural);
 			}
-			vista.listaParques.setModel(modelo);
-			}
+				vista.listaParques.setModel(modelo);
+		}
 		}
 	}
 }
